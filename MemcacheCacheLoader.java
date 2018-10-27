@@ -37,9 +37,8 @@ public abstract class MemcacheCacheLoader<K, V> implements CacheLoader<K, Tempor
         		final boolean isAvailableForRefresh = this.isAvailableForRefresh(cachedEntryOpt);
 			final boolean isExpired = this.isExpired(cachedEntryOpt);
 
-			// If we don't have a cached copy, or the cached copy is ready to 
-			// be asynchronously refreshed, then fetch from source, and update 
-			// cache.
+			// If we have a cached copy that is not expired, return it.
+			// If the entry is ready to be refreshed, do so in a separate thread.
 			if (cachedEntryOpt.isPresent() && !isExpired) {
 				// Kick off in another thread
 				if (isAvailableForRefresh) {
