@@ -14,7 +14,6 @@ import net.spy.memcached.MemcachedClientIF;
 /**
  * Uses Memcache as the far cache, and Caffeine as the near cache.
  *  
- * @param <T> The source type of the cache entry
  */
 @Slf4j
 public abstract class MemcacheCacheLoader<K, V> implements CacheLoader<K, TemporalCacheEntryWrapper<V>> {
@@ -34,7 +33,7 @@ public abstract class MemcacheCacheLoader<K, V> implements CacheLoader<K, Tempor
     	
         	final Optional<TemporalCacheEntryWrapper<V>> cachedEntryOpt = getCacheEntryFromMemcache(memcacheKey);
         
-       	 	try {
+		try {
         		final boolean isAvailableForRefresh = this.isAvailableForRefresh(cachedEntryOpt);
 			final boolean isExpired = this.isExpired(cachedEntryOpt);
 
